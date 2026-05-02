@@ -38,7 +38,3 @@ This project fetches mock data from the [Fake Store API](https://fakestoreapi.co
    ```
 4. **Open in browser:**
    Open the Local URL provided in the terminal (usually `http://localhost:5173/`).
-
-## 👨‍💻 Beginner Friendly Code
-
-The code is heavily structured to be beginner-friendly. All the state is kept inside `App.jsx` for ease of understanding, then passed down as `props` to simple, isolated functional components in `src/components`. No heavy state management libraries like Redux are used—everything uses simple `useState`, `useEffect`, and standard Javascript methods (`map`, `filter`, `reduce`).
