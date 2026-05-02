@@ -1,4 +1,5 @@
-import { ShoppingCart, Heart, Search, Moon, Sun } from 'lucide-react';
+import { useState } from 'react';
+import { ShoppingCart, Heart, Search, Moon, Sun, Menu, X } from 'lucide-react';
 
 function Header({ 
   cartCount, 
@@ -10,10 +11,21 @@ function Header({
   darkMode,
   setDarkMode 
 }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <header className="main-header">
-      <div className="header-left">
+      <div className="header-top">
         <h1 className="logo">ShopSmart</h1>
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      <div className={`header-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
         <div className="search-bar">
           <Search size={20} color="var(--secondary-color)" />
           <input 
@@ -24,26 +36,26 @@ function Header({
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-      </div>
-      
-      <div className="header-right">
-        <button 
-          className="icon-button" 
-          onClick={() => setDarkMode(!darkMode)}
-          title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        >
-          {darkMode ? <Sun size={24} /> : <Moon size={24} />}
-        </button>
-
-        <button className="icon-button" onClick={toggleWishlist} title="Wishlist">
-          <Heart size={24} color={wishlistCount > 0 ? "var(--danger-color)" : "currentColor"} />
-          {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
-        </button>
         
-        <button className="icon-button" onClick={toggleCart} title="Cart">
-          <ShoppingCart size={24} />
-          {cartCount > 0 && <span className="badge">{cartCount}</span>}
-        </button>
+        <div className="header-right">
+          <button
+            className="icon-button"
+            onClick={() => setDarkMode(!darkMode)}
+            title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+          </button>
+
+          <button className="icon-button" onClick={toggleWishlist} title="Wishlist">
+            <Heart size={24} color={wishlistCount > 0 ? "var(--danger-color)" : "currentColor"} />
+            {wishlistCount > 0 && <span className="badge">{wishlistCount}</span>}
+          </button>
+
+          <button className="icon-button" onClick={toggleCart} title="Cart">
+            <ShoppingCart size={24} />
+            {cartCount > 0 && <span className="badge">{cartCount}</span>}
+          </button>
+        </div>
       </div>
     </header>
   );
